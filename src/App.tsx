@@ -3,6 +3,7 @@ import QuestionCard from "./Components/QuestionCard";
 import { fetchQuizQuestion } from "./Api";
 import { Difficulty, QuestionState } from "./Api";
 import { GlobalStyle, Wrapper } from "./App.styles";
+import { ButtonWrapper, Wrappers } from "./Components/QuestionCard.styles";
 // import Level from "./Level";
 
 export type answerObject = {
@@ -80,7 +81,7 @@ function App() {
         ) : null}
         {!gameOver ? <p className="score">Score:{score}</p> : null}
         {loading && <p>Loading Questions ...</p>}
-        {!loading && !gameOver && (
+        { !gameOver && !loading &&(
           <QuestionCard
             questioNr={number + 1}
             totalQuestions={TOTAL_Questions}
@@ -88,8 +89,11 @@ function App() {
             answers={questions[number].answers}
             userAnswer={userAnswers ? userAnswers[number] : undefined}
             callback={checkAnswer}
+            userAnswers={userAnswers}
+            score = {score}
           />
         )}
+
         {!gameOver &&
         !loading &&
         userAnswers.length === number + 1 &&

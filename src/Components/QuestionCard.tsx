@@ -7,13 +7,25 @@ type props = {
     userAnswer: answerObject | undefined,
     questioNr: number,
     totalQuestions:number
+    userAnswers:answerObject[],
+    score:number
 }
-const   QuestionCard :React.FC<props>= ({question,answers,callback,userAnswer,questioNr,totalQuestions}) => (
+const   QuestionCard :React.FC<props>= ({question,answers,callback,userAnswer,questioNr,totalQuestions,userAnswers, score}) => (
     <Wrappers>
-    <p className="number">question:{questioNr}/{totalQuestions}</p>
+        {
+           
+ userAnswers.length === totalQuestions ?
+ (  <div> <h2>🏆 Your Score:{score}</h2>
+ <p>Congratulation on completing the quiz! 🎉</p>
+ </div>):   
+   (
+    <>
+   <p className="number">question:{questioNr}/{totalQuestions}</p>
     <p dangerouslySetInnerHTML={{__html:question}}></p>
-    <div>
+    <div >
     {
+       
+        (
         answers.map((answer) =>(
             <ButtonWrapper 
             key={answer}
@@ -24,9 +36,14 @@ const   QuestionCard :React.FC<props>= ({question,answers,callback,userAnswer,qu
                     <span dangerouslySetInnerHTML={{__html:answer}}/>
                 </button>
             </ButtonWrapper>
-        ))
+        )))
     }
+    
 </div>
-    </Wrappers>
+</>
+)
+
+}
+</Wrappers>
 )
 export default QuestionCard;
